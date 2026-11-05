@@ -15,6 +15,9 @@ jobs:
       - run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses || true
       - run: unzip -q ScreenAI.zip
       - run: |
+          sed -i 's#mavenCentral()#mavenCentral(); maven("https://jitpack.io")#' ScreenAI/settings.gradle.kts
+          sed -i 's#tesseract4android:4.7.0#tesseract4android:4.9.0#' ScreenAI/app/build.gradle.kts
+      - run: |
           mkdir -p ScreenAI/app/src/main/assets/tessdata
           for l in rus eng; do
             curl -sL -o ScreenAI/app/src/main/assets/tessdata/$l.traineddata \
